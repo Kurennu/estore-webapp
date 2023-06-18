@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Связь с нами{% endblock title %}
+{% block content %}
+
+<h1><font face = "Century Gothic">LTech</font></h1>
+<h2><font face = "Century Gothic">Связаться с нами</font></h2>
+{% endblock content %} 
+{% block body %}
+<h1 class='text-center mt-4'>Для обращения в нашу службу поддержки заполните форму ниже</h1>
+<div class="container mt-2">
+    {% for message in messages %}
+
+    <div class="alert alert-{{message.tags}} alert-dismissible fade show"
+    role = "alert">
+        <strong>{{message}}</strong>
+        <button type="button" class='btn-close' data-bs-dismiss="alert"
+        aria-label="Close"></button>
+    </div>
+    
+    {% endfor %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-lg-4"></div>
+        <form action="/contact" method="post"> {% csrf_token %}
+            <br>
+        
+            <label for="name">Ваше имя</label>
+            <div class="form-group">
+                <input
+                    type="text"
+                    class="form-control p-1"
+                    id="name"
+                    name="name"
+                    required/>
+            </div>
+            <label for="email">Email</label>
+            <div class="form-group">
+                <input
+                    type="email"
+                    class="form-control p-1"
+                    id="email"
+                    name="email"
+                    value="{{user.email}}"
+                    required/>
+            </div>
+            <label for="desc">Чем мы можем вам помочь?</label>
+            <div class="form-group">
+                <textarea
+                    type="text" 
+                    class="form-control p-2" 
+                    id="desc" 
+                    name="desc"
+                    required> </textarea>
+            </div>
+            <label for="pnumber">Номер телефона</label>
+            <div class="form-group">
+                <input 
+                    type="number"
+                    class="form-control p-1"
+                    id="pnumber" 
+                    name="pnumber"
+                    required/>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success p-2" href="/auth/signup/">Отправить</button>
+        </form>
+</div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock body %}
